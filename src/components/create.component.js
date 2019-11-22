@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const CreateComponent = (props) => {
     const initialFormState = { businessId: '', personName: '', businessName: '', gstNumber: '' }
@@ -20,7 +20,7 @@ const CreateComponent = (props) => {
             <form onSubmit={
                 event => {
                     event.preventDefault()
-                    
+
                     props.addBusiness(business)
                     setBusiness(initialFormState)
                 }

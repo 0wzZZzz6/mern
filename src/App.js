@@ -27,7 +27,7 @@ const App = () => {
   const updateBusiness = (id, business) => {
     console.log(`${id} - ${business}`)
     axios.post(`http://localhost:4000/business/update/${id}`, business)
-    .then(res => console.log(res.data));
+      .then(res => console.log(res.data));
   }
 
   const randomId = () => {
