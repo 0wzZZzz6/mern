@@ -13,7 +13,7 @@ const IndexComponent = (props) => {
             .catch(function (error) {
                 console.log(error);
             })
-    }, [])
+    }, [props])
 
     return (
         <div>

@@ -24,8 +24,10 @@ const App = () => {
       .then(res => console.log(res.data))
   }
 
-  const updateBusiness = data => {
-    console.log(data)
+  const updateBusiness = (id, business) => {
+    console.log(`${id} - ${business}`)
+    axios.post(`http://localhost:4000/business/update/${id}`, business)
+    .then(res => console.log(res.data));
   }
 
   const randomId = () => {
@@ -54,7 +56,7 @@ const App = () => {
         <h2>Welcome to React CRUD Tutorial</h2> <br />
         <Switch>
           <Route exact path='/create' render={(props) => <CreateComponent {...props} addBusiness={addBusiness} />} />
-          <Route path='/edit/:id' component={} />} />
+          <Route path='/edit/:id' render={(props) => <EditComponent {...props} updateBusiness={updateBusiness} />} />
           <Route path='/index' component={IndexComponent} />
         </Switch>
       </div>

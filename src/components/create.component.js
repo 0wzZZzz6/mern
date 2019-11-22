@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const CreateComponent = (props) => {
     const initialFormState = { businessId: '', personName: '', businessName: '', gstNumber: '' }
     const [business, setBusiness] = useState(initialFormState)
-    
+
     const handleInputChange = (event) => {
         const { name, value } = event.target
 

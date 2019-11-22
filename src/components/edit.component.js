@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const EditComponent = (props) => {
-    const [business, setBusiness] = useState([])
+    const initialFormState = { businessId: '', personName: '', businessName: '', gstNumber: '' }
+    const [business, setBusiness] = useState(initialFormState)
 
     useEffect(() => {
         axios.get(`http://localhost:4000/business/edit/${props.match.params.id}`)
@@ -12,7 +13,7 @@ const EditComponent = (props) => {
             .catch(function (error) {
                 console.log(error);
             })
-    }, [])
+    }, [props])
 
 
     const handleInputChange = (event) => {
@@ -31,7 +32,8 @@ const EditComponent = (props) => {
                 event => {
                     event.preventDefault()
 
-                    props.updateBusiness(business)
+                    props.updateBusiness(props.match.params.id, business)
+                    props.history.push('/index');
                 }
             }>
                 <div className="form-group">
