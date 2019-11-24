@@ -33,7 +33,7 @@ const EditComponent = (props) => {
                     event.preventDefault()
 
                     props.updateBusiness(props.match.params.id, business)
-                    props.history.push('/index');
+                    props.history.push('/index')
                 }
             }>
                 <div className="form-group">

@@ -13,7 +13,13 @@ const IndexComponent = (props) => {
             .catch(function (error) {
                 console.log(error);
             })
-    })
+    }, [business])
+
+    const deleteBusiness = (id) => {
+        axios.get(`http://localhost:4000/business/delete/${id}`)
+            .then(console.log('Deleted'))
+            .catch(err => console.log(err))
+    }
 
     return (
         <div>
@@ -38,7 +44,7 @@ const IndexComponent = (props) => {
                                     <Link to={"/edit/" + item._id} className="btn btn-primary">Edit</Link>
                                 </td>
                                 <td>
-                                    <button className="btn btn-danger" >Delete</button>
+                                    <button className="btn btn-danger" onClick={() => deleteBusiness(item._id)}>Delete</button>
                                 </td>
                             </tr>
                         ))

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import axios from 'axios'
@@ -14,7 +14,6 @@ const App = () => {
 
   const addBusiness = data => {
     data.businessId = randomId()
-    console.log(data)
     setBusiness([
       ...business,
       data
@@ -22,12 +21,20 @@ const App = () => {
 
     axios.post('http://localhost:4000/business/add', data)
       .then(res => console.log(res.data))
+      .catch(err => err)
+
   }
 
   const updateBusiness = (id, business) => {
     console.log(`${id} - ${business}`)
     axios.post(`http://localhost:4000/business/update/${id}`, business)
-      .then(res => console.log(res.data));
+      .then(res => console.log(res.data))
+  }
+
+  const deleteBusiness = (id) => {
+    axios.get(`http://localhost:4000/business/delete/${id}`)
+      .then(console.log('Deleted'))
+      .catch(err => console.log(err))
   }
 
   const randomId = () => {
@@ -53,15 +60,15 @@ const App = () => {
             </ul>
           </div>
         </nav><br />
-        <h2>Welcome to React CRUD Tutorial</h2> <br />
+        <h2>Welcome to React CRUD</h2> <br />
         <Switch>
           <Route exact path='/create' render={(props) => <CreateComponent {...props} addBusiness={addBusiness} />} />
           <Route path='/edit/:id' render={(props) => <EditComponent {...props} updateBusiness={updateBusiness} />} />
-          <Route path='/index' component={IndexComponent} />
+          <Route path='/index' render={(props) => <IndexComponent {...props} deleteBusiness={deleteBusiness} />} />
         </Switch>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
