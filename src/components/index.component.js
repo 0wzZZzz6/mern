@@ -9,15 +9,24 @@ const IndexComponent = (props) => {
         axios.get('http://localhost:4000/business')
             .then(response => {
                 setBusiness(response.data)
+                console.log(business.length)
             })
             .catch(function (error) {
                 console.log(error);
             })
-    }, [business])
+    }, [business.length])
 
     const deleteBusiness = (id) => {
         axios.get(`http://localhost:4000/business/delete/${id}`)
-            .then(console.log('Deleted'))
+            .then(
+                axios.get('http://localhost:4000/business')
+                    .then(response => {
+                        setBusiness(response.data)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            )
             .catch(err => console.log(err))
     }
 
@@ -48,7 +57,6 @@ const IndexComponent = (props) => {
                                 </td>
                             </tr>
                         ))
-
                     }
                 </tbody>
             </table>
