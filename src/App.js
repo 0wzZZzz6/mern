@@ -1,31 +1,12 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import axios from 'axios'
 
 import CreateComponent from './components/create.component'
 import IndexComponent from './components/index.component'
 import EditComponent from './components/edit.component'
 
 const App = () => {
-
-  const addBusiness = data => {
-    data.businessId = randomId()
-    axios.post('http://localhost:4000/business/add', data)
-      .then(res => console.log(res.data))
-      .catch(err => err)
-  }
-
-  const updateBusiness = (id, business) => {
-    console.log(`${id} - ${business}`)
-    axios.post(`http://localhost:4000/business/update/${id}`, business)
-      .then(res => console.log(res.data))
-  }
-
-  const randomId = () => {
-    return '_' + Math.random().toString(36).substr(2, 9)
-  }
-
   return (
     <Router>
       <div className="container">
@@ -47,8 +28,8 @@ const App = () => {
         </nav><br />
         <h2>Welcome to React CRUD</h2> <br />
         <Switch>
-          <Route exact path='/create' render={(props) => <CreateComponent {...props} addBusiness={addBusiness} />} />
-          <Route path='/edit/:id' render={(props) => <EditComponent {...props} updateBusiness={updateBusiness} />} />
+          <Route exact path='/create' component={CreateComponent} />
+          <Route path='/edit/:id' component={EditComponent} />
           <Route path='/index' component={IndexComponent} />
         </Switch>
       </div>

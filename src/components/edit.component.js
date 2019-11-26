@@ -15,7 +15,6 @@ const EditComponent = (props) => {
             })
     }, [props])
 
-
     const handleInputChange = (event) => {
         const { name, value } = event.target
 
@@ -25,15 +24,26 @@ const EditComponent = (props) => {
         })
     }
 
+    const cancelEdit = (event) => {
+        event.preventDefault()
+        props.history.push('/index')
+    }
+
+    const updateBusiness = (id, business) => {
+        axios.post(`http://localhost:4000/business/update/${id}`, business)
+            .then(res => {
+                console.log(res.data)
+                return props.history.push('/index')
+            })
+    }
+
     return (
         <div style={{ marginTop: 10 }}>
             <h3>Add New Business</h3>
             <form onSubmit={
                 event => {
                     event.preventDefault()
-
-                    props.updateBusiness(props.match.params.id, business)
-                    props.history.push('/index')
+                    updateBusiness(props.match.params.id, business)
                 }
             }>
                 <div className="form-group">
@@ -63,8 +73,9 @@ const EditComponent = (props) => {
                         type="text"
                         className="form-control" />
                 </div>
-                <div className="form-group">
+                <div className="form-group btn-group" >
                     <button className="btn btn-primary">Update</button>
+                    <button className="btn btn-danger" onClick={cancelEdit}>Cancel</button>
                 </div>
             </form>
         </div>

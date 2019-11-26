@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const CreateComponent = (props) => {
     const initialFormState = { businessId: '', personName: '', businessName: '', gstNumber: '' }
@@ -13,6 +14,19 @@ const CreateComponent = (props) => {
         })
     }
 
+    const randomId = () => {
+        return '_' + Math.random().toString(36).substr(2, 9)
+    }
+
+    const addBusiness = data => {
+        data.businessId = randomId()
+        axios.post('http://localhost:4000/business/add', data)
+            .then(res => {
+                console.log(res.data)
+                setBusiness(initialFormState)
+            })
+            .catch(err => err)
+    }
 
     return (
         <div style={{ marginTop: 10 }}>
@@ -20,10 +34,7 @@ const CreateComponent = (props) => {
             <form onSubmit={
                 event => {
                     event.preventDefault()
-
-                    props.addBusiness(business)
-                    setBusiness(initialFormState)
-
+                    addBusiness(business)
                 }
             }>
                 <div className="form-group">

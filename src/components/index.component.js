@@ -2,31 +2,24 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-const IndexComponent = (props) => {
+const IndexComponent = () => {
     const [business, setBusiness] = useState([])
+    const [idDelete, setIddelete] = useState(null)
 
     useEffect(() => {
         axios.get('http://localhost:4000/business')
             .then(response => {
                 setBusiness(response.data)
-                console.log(business.length)
+                console.log(`status indexComponent: ${response.status}`)
             })
             .catch(function (error) {
                 console.log(error);
             })
-    }, [business.length])
+    }, [idDelete])
 
     const deleteBusiness = (id) => {
         axios.get(`http://localhost:4000/business/delete/${id}`)
-            .then(
-                axios.get('http://localhost:4000/business')
-                    .then(response => {
-                        setBusiness(response.data)
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
-            )
+            .then(console.log('Deleted'), setIddelete(id))
             .catch(err => console.log(err))
     }
 
